@@ -4,7 +4,6 @@ from comfy.sd import load_torch_file
 import model_management
 from nodes import filter_files_extensions, recursive_search, supported_ckpt_extensions
 import torch
-import comfy.utils
 
 class UpscaleModelLoader:
     models_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "models")
@@ -14,7 +13,6 @@ class UpscaleModelLoader:
     def INPUT_TYPES(s):
         return {"required": { "model_name": (filter_files_extensions(recursive_search(s.upscale_model_dir), supported_ckpt_extensions), ),
                              }}
-    RETURN_TYPES = ("UPSCALE_MODEL",)
     FUNCTION = "load_model"
 
     CATEGORY = "loaders"
@@ -29,9 +27,7 @@ class UpscaleModelLoader:
 class ImageUpscaleWithModel:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": { "upscale_model": ("UPSCALE_MODEL",),
-                              "image": ("IMAGE",),
-                              }}
+        return {"required": { "upscale_model": ("UPSCALE_MODEL",),  
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "upscale"
 
